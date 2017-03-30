@@ -29,7 +29,8 @@
 	
 	half4 frag(v2f i) : SV_Target 
 	{
-		float4 col = _Color * tex2D(_MainTex, i.uv);
+		float4 col = tex2D(_MainTex, i.uv);
+		col.a = col.a * _Color.a;
 		return col;
 	}
 
@@ -41,7 +42,10 @@
 			ZTest Always 
 			Cull Off 
 			ZWrite Off
-	  
+			//Blend SrcAlpha OneMinusSrcAlpha
+			Blend SrcAlpha Zero
+			//ColorMask RGBA
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
