@@ -27,8 +27,6 @@ public class CameraCrossfade : MonoBehaviour {
     {
         Camera camera = GetComponent<Camera>();
         Debug.Assert(camera != null, "没有Camera组件");
-        camera.clearFlags = CameraClearFlags.SolidColor;
-        camera.backgroundColor = new Color(1, 1, 1, 0);
         // 初始化
         material.SetColor("_Color", targetColor);
     }
