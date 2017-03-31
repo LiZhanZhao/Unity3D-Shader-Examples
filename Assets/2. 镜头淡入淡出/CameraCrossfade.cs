@@ -4,8 +4,14 @@ using System.Collections;
 [ExecuteInEditMode]
 public class CameraCrossfade : MonoBehaviour {
     public Shader shader = null;
-    public Color targetColor;
+    private RenderTexture srcTex = null;
+    private RenderTexture dstTex = null;
+    public Camera srcCamera;
+    public Camera dstCamera;
+    public float alpha;
     private Material _material;
+
+
     protected Material material
     {
         get
@@ -28,7 +34,14 @@ public class CameraCrossfade : MonoBehaviour {
         Camera camera = GetComponent<Camera>();
         Debug.Assert(camera != null, "没有Camera组件");
         // 初始化
-        material.SetColor("_Color", targetColor);
+        if(srcTex == null)
+        {
+            srcTex = new RenderTexture(Screen.width, Screen.height, 24);
+            srcCamera.targetTexture = srcTex;
+            dstTex = new RenderTexture(Screen.width, Screen.height, 24);
+            dstCamera.targetTexture = dstTex;
+        }
+        
     }
 
     
@@ -36,7 +49,10 @@ public class CameraCrossfade : MonoBehaviour {
     
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        material.SetColor("_Color", targetColor);
+
+        material.SetTexture("_SrcTex", srcCamera.targetTexture);
+        material.SetTexture("_DstTex", dstCamera.targetTexture);
+        material.SetFloat("_Alpha", alpha);
         if (material != null)
         {
             Graphics.Blit(source, destination, material);
