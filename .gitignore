@@ -2,3 +2,5 @@
 *.sln
 *.csproj
 *.userprefs
+Assets/res/*
+Assets/res.meta
