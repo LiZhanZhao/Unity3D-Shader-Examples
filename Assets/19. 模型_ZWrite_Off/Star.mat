@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Sea_Temp
-  m_Shader: {fileID: 4800000, guid: 9bd875eedd91a0f4f93dee82828fd4f7, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_Name: Star
+  m_Shader: {fileID: 4800000, guid: dba98f7fff3cee143beaefac2c732890, type: 3}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -48,7 +48,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 3651535da3d2b3142ad264434bf4635f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5cd33681a87e10541ae63d185743fe90, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -69,24 +69,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: u_backgroundTex
-      second:
-        m_Texture: {fileID: 2800000, guid: c892c646340e4914f824785dc23849d8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: u_foamTex
-      second:
-        m_Texture: {fileID: 2800000, guid: 8625fc3e6d47ae84ea8de4e0c063aa26, type: 3}
-        m_Scale: {x: 6, y: 6}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: u_normalTex
-      second:
-        m_Texture: {fileID: 2800000, guid: abfdba402bab7fb4d8a8649b288f6576, type: 3}
-        m_Scale: {x: 15, y: 15}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _BumpScale
@@ -101,8 +83,17 @@ Material:
         name: _DstBlend
       second: 0
     - first:
+        name: _GlossMapScale
+      second: 1
+    - first:
         name: _Glossiness
       second: 0.5
+    - first:
+        name: _GlossyReflections
+      second: 1
+    - first:
+        name: _InvFade
+      second: 0.02
     - first:
         name: _Metallic
       second: 0
@@ -116,6 +107,12 @@ Material:
         name: _Parallax
       second: 0.02
     - first:
+        name: _SmoothnessTextureChannel
+      second: 0
+    - first:
+        name: _SpecularHighlights
+      second: 1
+    - first:
         name: _SrcBlend
       second: 1
     - first:
@@ -123,18 +120,6 @@ Material:
       second: 0
     - first:
         name: _ZWrite
-      second: 1
-    - first:
-        name: u_backgroundAlphaOffset
-      second: 1.02
-    - first:
-        name: u_colorProgress
-      second: 2.28
-    - first:
-        name: u_normalMovement
-      second: 10
-    - first:
-        name: u_shinessIntensity
       second: 1
     m_Colors:
     - first:
@@ -144,29 +129,5 @@ Material:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
-        name: u_centerColor1
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: u_centerColor2
-      second: {r: 0.05490196, g: 0.75686276, b: 0.75686276, a: 0.423}
-    - first:
-        name: u_edgeColor1
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: u_edgeColor2
-      second: {r: 0, g: 0.19607843, b: 0.3882353, a: 0.8588235}
-    - first:
-        name: u_shiness
-      second: {r: 0, g: 50, b: 6, a: 1}
-    - first:
-        name: u_specularColor
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: u_uvSpeed
-      second: {r: 0, g: 0, b: 0.004, a: 0}
-    - first:
-        name: u_vertexWaveArg
-      second: {r: -0.5, g: 2.82, b: 0.4, a: 0.05}
-    - first:
-        name: u_vertexWaveDir
-      second: {r: 1, g: 10, b: 0, a: -18.54}
+        name: _TintColor
+      second: {r: 0.5735294, g: 0.5735294, b: 0.5735294, a: 0.5}
