@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 Shader "xxxx/Particles-Additive" {
 Properties {
 	_TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
@@ -47,7 +49,7 @@ Category {
 			{
 				v2f o;
 				float3 camWorldPos = _WorldSpaceCameraPos;
-				float4 vertexWorldPos = mul(_Object2World, v.vertex);
+				float4 vertexWorldPos = mul(unity_ObjectToWorld, v.vertex);
 				float3 vertex2CamDir = camWorldPos - vertexWorldPos.xyz;
 				vertex2CamDir = normalize(vertex2CamDir);
 				vertexWorldPos.xyz = vertexWorldPos.xyz + vertex2CamDir * _WorldPosOffset;
