@@ -49,7 +49,28 @@ SubShader {
 	Tags { "Queue"="Transparent" "RenderType"="Opaque" }
 
 	
+	Pass{
+		Stencil
+		{
+			Ref 1
+			Comp Always
+			Pass Replace
+		}
 
+		ZTest LEqual
+		CGPROGRAM
+		#pragma vertex vert
+		#pragma fragment frag
+
+
+		fixed4 frag(v2f i) : SV_Target
+		{
+			fixed4 col = tex2D(_MainTex, i.texcoord);
+			return col;
+		}
+
+		ENDCG
+	}
 
 	Pass {  
 		ZTest Greater
@@ -97,7 +118,7 @@ SubShader {
 		ENDCG
 	}
 
-	Pass {  
+	/*Pass {  
 		ZTest LEqual
 		CGPROGRAM
 			#pragma vertex vert
@@ -110,7 +131,7 @@ SubShader {
 				return col;
 			}
 		ENDCG
-	}
+	}*/
 
 
 
