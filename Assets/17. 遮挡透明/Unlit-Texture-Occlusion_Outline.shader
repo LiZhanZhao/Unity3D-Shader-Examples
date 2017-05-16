@@ -20,8 +20,8 @@ Properties {
 
 	sampler2D _MainTex;
 	float4 _MainTex_ST;
-	uniform float _Outline;
-	uniform float4 _OutlineColor;
+	float _Outline;
+	float4 _OutlineColor;
 
 	v2f vert(appdata_t v)
 	{
@@ -35,10 +35,17 @@ Properties {
 	v2f vert_outline(appdata_t v)
 	{
 		v2f o = (v2f)0;
-		o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-		float3 norm = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
-		float2 offset = TransformViewToProjection(norm.xy); //float2 offset =  mul((float2x2)UNITY_MATRIX_P, norm.xy);
-		o.vertex.xy += offset * o.vertex.z * _Outline;
+		//o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+		//float3 norm = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+		//float2 offset = TransformViewToProjection(norm.xy); //float2 offset =  mul((float2x2)UNITY_MATRIX_P, norm.xy);
+		//o.vertex.xy += offset * o.vertex.z * _Outline;
+
+		float4 viewPos = mul(UNITY_MATRIX_MV, v.vertex);
+		float3 viewNorm   = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+		float3 offset =  normalize(viewNorm) * _Outline;
+		viewPos.xyz += offset;
+		o.vertex = mul(UNITY_MATRIX_P, viewPos);
+
 		return o;
 	}
 
