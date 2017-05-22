@@ -8,7 +8,7 @@ public class CameraImageEffect : MonoBehaviour
     private Camera shaderCamera;
     private RenderTexture replaceRenderTexture;
 
-    //public Material _material;
+    public Material material;
 
     public void Start()
     {
@@ -33,19 +33,23 @@ public class CameraImageEffect : MonoBehaviour
         
     }
 
+    private void OnDisable()
+    {
+        RenderTexture.Destroy(replaceRenderTexture);
+    }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        //if (_material != null)
-        //{
-        //    Graphics.Blit(source, destination, _material);
-        //}
-        //else
-        //{
-        //    Graphics.Blit(source, destination);
-        //}
-
-       Graphics.Blit(replaceRenderTexture, destination);
+        if (material != null)
+        {
+            material.SetTexture("_MainTex", source);
+            material.SetTexture("_RegionTex", replaceRenderTexture);
+            Graphics.Blit(source, destination, material);
+        }
+        else
+        {
+            Graphics.Blit(source, destination);
+        }
     }
 }
 

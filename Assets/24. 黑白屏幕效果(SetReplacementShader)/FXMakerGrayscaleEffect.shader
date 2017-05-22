@@ -1,3 +1,6 @@
+
+// 生成灰色图，和标记特效在哪一些区域
+
 Shader "FXMakerGrayscaleEffect" {
 Properties {
 	_MainTex("Texture", 2D) = "white" {}
@@ -9,7 +12,6 @@ Properties {
 SubShader{
 	Tags{ "RenderType" = "Effect" }
 	Pass{
-		Fog{ Mode off }
 
 		CGPROGRAM
 		#pragma vertex vert
@@ -28,27 +30,16 @@ SubShader{
 			float4 vertex : SV_POSITION;
 		};
 
-		sampler2D _MainTex;
-		float4 _MainTex_ST;
-
-		fixed _GreyX, _GreyY, _GreyZ;
-
 		v2f vert(appdata v)
 		{
 			v2f o;
 			o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-			o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 			return o;
 		}
 
 		fixed4 frag(v2f i) : COLOR
 		{
-			fixed4 original = tex2D(_MainTex, i.uv);
-			fixed grayscale = dot(original.rgb, fixed3(_GreyX, _GreyY, _GreyZ));
-			fixed4 grayscaleCol = fixed4(grayscale, grayscale, grayscale, original.a);
-			fixed4 output = grayscaleCol;
-			//return output;
-			return fixed4(0.5, 0, 0, 1);
+			return fixed4(0, 0, 0, 0);
 		}
 		ENDCG
 
@@ -95,7 +86,7 @@ SubShader {
 		{
 			fixed4 original = tex2D(_MainTex, i.uv);
 			fixed grayscale = dot(original.rgb, fixed3(_GreyX, _GreyY, _GreyZ));
-			fixed4 grayscaleCol = fixed4(grayscale, grayscale, grayscale, original.a);
+			fixed4 grayscaleCol = fixed4(grayscale, grayscale, grayscale, 1);
 			fixed4 output = grayscaleCol;
 			return output;
 		}
