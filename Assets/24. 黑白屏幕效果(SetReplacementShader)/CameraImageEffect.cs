@@ -1,0 +1,51 @@
+﻿
+using UnityEngine;
+using System.Collections;
+
+public class CameraImageEffect : MonoBehaviour
+{
+
+    private Camera shaderCamera;
+    private RenderTexture replaceRenderTexture;
+
+    //public Material _material;
+
+    public void Start()
+    {
+        shaderCamera = new GameObject("Test", typeof(Camera)).GetComponent<Camera>();
+        Camera origCamera = GetComponent<Camera>();
+        replaceRenderTexture = new RenderTexture((int)origCamera.pixelWidth, (int)origCamera.pixelHeight, 16, RenderTextureFormat.ARGB32);
+        replaceRenderTexture.wrapMode = TextureWrapMode.Clamp;
+        replaceRenderTexture.useMipMap = false;
+        replaceRenderTexture.filterMode = FilterMode.Bilinear;
+        replaceRenderTexture.Create();
+
+        shaderCamera.CopyFrom(origCamera);
+        shaderCamera.clearFlags = CameraClearFlags.SolidColor;
+        shaderCamera.renderingPath = RenderingPath.Forward;
+        shaderCamera.targetTexture = replaceRenderTexture;
+        shaderCamera.depth = 10;
+
+        Shader.SetGlobalFloat("_GreyX", 0.299f);
+        Shader.SetGlobalFloat("_GreyY", 0.587f);
+        Shader.SetGlobalFloat("_GreyZ", 0.114f);
+        shaderCamera.SetReplacementShader(Shader.Find("FXMakerGrayscaleEffect"), "RenderType");
+        
+    }
+
+
+    void OnRenderImage(RenderTexture source, RenderTexture destination)
+    {
+        //if (_material != null)
+        //{
+        //    Graphics.Blit(source, destination, _material);
+        //}
+        //else
+        //{
+        //    Graphics.Blit(source, destination);
+        //}
+
+       Graphics.Blit(replaceRenderTexture, destination);
+    }
+}
+
