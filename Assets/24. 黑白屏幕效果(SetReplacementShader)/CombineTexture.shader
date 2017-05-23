@@ -4,6 +4,9 @@
 	{
 		_MainTex ("Texture", 2D) = "white" {}
 		_RegionTex ("RegionTex", 2D) = "white" {}
+		_GreyX("Grey Affect X", Range(0, 1)) = 0.299
+		_GreyY("Grey Affect Y", Range(0, 1)) = 0.587
+		_GreyZ("Grey Affect Z", Range(0, 1)) = 0.114
 	}
 	SubShader
 	{
@@ -36,6 +39,7 @@
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
 			sampler2D _RegionTex;
+			fixed _GreyX, _GreyY, _GreyZ;
 			
 			v2f vert (appdata v)
 			{
@@ -50,6 +54,12 @@
 			{
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
+				
+				
+
+				
+
+
 #if UNITY_UV_STARTS_AT_TOP 
 				fixed2 regionUv = float2(i.uv.x, 1 - i.uv.y);
 #else
@@ -57,12 +67,13 @@
 #endif
 				fixed4 maskCol = tex2D(_RegionTex, regionUv);
 
-				fixed4 outputCol = col * (1 - maskCol.a) + maskCol * maskCol.a;
+				clip(maskCol.r - 1);
 
-				// apply fog
-				UNITY_APPLY_FOG(i.fogCoord, col);
+				fixed grayscale = dot(col.rgb, fixed3(_GreyX, _GreyY, _GreyZ));
+				fixed4 grayscaleCol = fixed4(grayscale, grayscale, grayscale, col.a);
+				//fixed4 outputCol = col * (1 - maskCol.r) + maskCol * maskCol.r;
 
-				return outputCol;
+				return grayscaleCol;
 			}
 			ENDCG
 		}

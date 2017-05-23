@@ -26,9 +26,6 @@ public class CameraImageEffect : MonoBehaviour
         shaderCamera.targetTexture = replaceRenderTexture;
         shaderCamera.depth = 10;
 
-        Shader.SetGlobalFloat("_GreyX", 0.299f);
-        Shader.SetGlobalFloat("_GreyY", 0.587f);
-        Shader.SetGlobalFloat("_GreyZ", 0.114f);
         shaderCamera.SetReplacementShader(Shader.Find("FXMakerGrayscaleEffect"), "RenderType");
         
     }
