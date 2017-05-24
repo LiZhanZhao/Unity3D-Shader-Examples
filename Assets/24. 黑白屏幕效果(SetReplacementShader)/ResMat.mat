@@ -98,6 +98,15 @@ Material:
         name: _GlossyReflections
       second: 1
     - first:
+        name: _GreyX
+      second: 0.299
+    - first:
+        name: _GreyY
+      second: 0.587
+    - first:
+        name: _GreyZ
+      second: 0.114
+    - first:
         name: _Metallic
       second: 0
     - first:
